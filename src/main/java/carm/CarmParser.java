@@ -34,7 +34,7 @@ public class CarmParser {
         final String text = e.text();
         final String link = e.absUrl("href");
 
-        new URIBuilder(link).build().getqu
+//        new URIBuilder(link).build().getqu
 
         if (link.startsWith(Carm.CARM_BASE_URL + "/" + Carm.CARM_URL_PATH)) {
             ImmutablePair<String, CarmType> contentIdAndType = extractContentIdAndTypeFromCarmUrl(link);
