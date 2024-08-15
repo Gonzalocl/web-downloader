@@ -23,9 +23,9 @@ import java.util.List;
 
 public class Type100IncrementalIndex {
 
-    public static void fetchCarm(String dataFolder, int lowerBound, int upperBound) throws IOException, URISyntaxException {
+    public static void fetchCarm(String dataFolder, String contentId, int lowerBound, int upperBound, String trace) throws IOException, URISyntaxException {
 
-        final String url = buildUrl(lowerBound, upperBound);
+        final String url = buildUrl(contentId, lowerBound, upperBound, trace);
 
         final Document document = Jsoup.connect(url).get();
 
@@ -63,18 +63,18 @@ public class Type100IncrementalIndex {
         return Collections.emptyList();
     }
 
-    private static String buildUrl(int lowerBound, int upperBound) throws URISyntaxException, MalformedURLException {
+    private static String buildUrl(String contentId, int lowerBound, int upperBound, String trace) throws URISyntaxException, MalformedURLException {
         return new CarmUriBuilder(CarmUriBuilder.UriType.PAGE)
-                .addContentId("24183")
+                .addContentId(contentId)
                 .addType(CarmType.MENU)
                 .addLowerBound(lowerBound)
                 .addUpperBound(upperBound)
-                .addTrace("c$m4034")
+                .addTrace(trace)
                 .build().toURL().toString();
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException {
-        fetchCarm("/tmp", 0, 3);
+        fetchCarm("/tmp", "", 0, 3, "");
     }
 
 }
