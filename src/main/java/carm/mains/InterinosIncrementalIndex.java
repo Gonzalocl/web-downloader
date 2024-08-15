@@ -8,6 +8,7 @@ import carm.parser.impl.Type100Parser;
 import carm.parser.types.Link;
 import carm.storage.LinkStore;
 import carm.storage.interinosincrementalindex.InterinosIncrementalIndexStore;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -26,8 +27,7 @@ public class InterinosIncrementalIndex {
 
         final String url = buildUrl(lowerBound, upperBound);
 
-//        final Document document = Jsoup.connect(url).get();
-        final Document document = new Document("");
+        final Document document = Jsoup.connect(url).get();
 
         final Type100Item item = new Type100Parser().parse(document);
 
