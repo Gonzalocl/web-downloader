@@ -5,6 +5,8 @@ import org.apache.hc.core5.net.URIBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CarmUriBuilder {
 
@@ -38,11 +40,9 @@ public class CarmUriBuilder {
 
         final URI parsedUri = uriBuilder.build();
 
-        if (UriPath.PAGE.getPath().equals(parsedUri.getPath())) {
-            uriPath = UriPath.PAGE;
-        } else if (UriPath.DOWNLOAD.getPath().equals(parsedUri.getPath())) {
-            uriPath = UriPath.DOWNLOAD;
-        } else {
+        uriPath = UriPath.getByPath(parsedUri.getPath());
+
+        if (uriPath == null) {
             throw new IllegalArgumentException();
         }
     }
@@ -86,7 +86,14 @@ public class CarmUriBuilder {
         DOWNLOAD("/web/descarga"),
         ;
 
+        private static final Map<String, UriPath> byPath = new HashMap<>();
         private final String path;
+
+        static {
+            for (final UriPath value : UriPath.values()) {
+                byPath.put(value.getPath(), value);
+            }
+        }
 
         UriPath(String path) {
             this.path = path;
@@ -94,6 +101,10 @@ public class CarmUriBuilder {
 
         public String getPath() {
             return path;
+        }
+
+        public static UriPath getByPath(String path) {
+            return byPath.get(path);
         }
     }
 }
