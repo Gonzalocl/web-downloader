@@ -31,7 +31,7 @@ public class Type100IncrementalIndex {
 
         final Type100Item item = new Type100Parser().parse(document);
 
-        final List<Link> newLinks = storeAndGetNewLinks(dataFolder, item, lowerBound, upperBound);
+        final List<Link> newLinks = storeAndGetNewLinks(dataFolder, item, url);
 
         printNewLinks(newLinks);
 
@@ -44,7 +44,7 @@ public class Type100IncrementalIndex {
         }
     }
 
-    private static List<Link> storeAndGetNewLinks(String dataFolder, Type100Item item, int lowerBound, int upperBound) throws IOException {
+    private static List<Link> storeAndGetNewLinks(String dataFolder, Type100Item item, String url) throws IOException {
 
         final ZonedDateTime now = ZonedDateTime.now();
         final Path dataPath = Paths.get(dataFolder, "Type100IncrementalIndex");
@@ -56,7 +56,7 @@ public class Type100IncrementalIndex {
                 .map(l -> new LinkStore(l.name(), l.url()))
                 .toList();
 
-        Type100IncrementalIndexStore indexStore = new Type100IncrementalIndexStore(now.toEpochSecond(), lowerBound, upperBound, links, null, null);
+        Type100IncrementalIndexStore indexStore = new Type100IncrementalIndexStore(now.toEpochSecond(), url, links, null, null);
 
         Files.writeString(filePath, Carm.gson.toJson(indexStore));
 
