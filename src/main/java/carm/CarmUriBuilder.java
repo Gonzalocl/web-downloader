@@ -17,16 +17,16 @@ public class CarmUriBuilder {
     private static final String CARM_TRACE_QUERY_PARAM = "RASTRO";
 
     private final URIBuilder uriBuilder;
-    private final UriType uriType;
+    private final UriPath uriPath;
     private String contentId;
     private CarmType carmType;
     private Integer lowerBound;
     private Integer upperBound;
     private String trace;
 
-    public CarmUriBuilder(UriType uriType) throws URISyntaxException {
-        this.uriType = uriType;
-        uriBuilder = new URIBuilder(CARM_BASE_URL).appendPath(uriType.getPath());
+    public CarmUriBuilder(UriPath uriPath) throws URISyntaxException {
+        this.uriPath = uriPath;
+        uriBuilder = new URIBuilder(CARM_BASE_URL).appendPath(uriPath.getPath());
     }
 
     public CarmUriBuilder(String uri) throws URISyntaxException {
@@ -38,10 +38,10 @@ public class CarmUriBuilder {
 
         final URI parsedUri = uriBuilder.build();
 
-        if (UriType.PAGE.getPath().equals(parsedUri.getPath())) {
-            uriType = UriType.PAGE;
-        } else if (UriType.DOWNLOAD.getPath().equals(parsedUri.getPath())) {
-            uriType = UriType.DOWNLOAD;
+        if (UriPath.PAGE.getPath().equals(parsedUri.getPath())) {
+            uriPath = UriPath.PAGE;
+        } else if (UriPath.DOWNLOAD.getPath().equals(parsedUri.getPath())) {
+            uriPath = UriPath.DOWNLOAD;
         } else {
             throw new IllegalArgumentException();
         }
@@ -81,14 +81,14 @@ public class CarmUriBuilder {
         return uriBuilder.build();
     }
 
-    public enum UriType {
+    public enum UriPath {
         PAGE("/web/pagina"),
         DOWNLOAD("/web/descarga"),
         ;
 
         private final String path;
 
-        UriType(String path) {
+        UriPath(String path) {
             this.path = path;
         }
 

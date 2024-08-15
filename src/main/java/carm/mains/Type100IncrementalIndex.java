@@ -64,7 +64,7 @@ public class Type100IncrementalIndex {
     }
 
     private static String buildUrl(String contentId, int lowerBound, int upperBound, String trace) throws URISyntaxException, MalformedURLException {
-        return new CarmUriBuilder(CarmUriBuilder.UriType.PAGE)
+        return new CarmUriBuilder(CarmUriBuilder.UriPath.PAGE)
                 .addContentId(contentId)
                 .addType(CarmType.MENU)
                 .addLowerBound(lowerBound)
