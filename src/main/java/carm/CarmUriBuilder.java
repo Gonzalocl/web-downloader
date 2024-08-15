@@ -8,9 +8,10 @@ import java.net.URISyntaxException;
 
 public class CarmUriBuilder {
 
-    public static final String CARM_BASE_URL = "https://www.carm.es";
-    private static final String CARM_PAGE_PATH = "web/pagina";
-    private static final String CARM_DOWNLOAD_PATH = "web/descarga";
+    public static final String CARM_HOST = "www.carm.es";
+    public static final String CARM_BASE_URL = "https://" + CARM_HOST;
+    private static final String CARM_PAGE_PATH = "/web/pagina";
+    private static final String CARM_DOWNLOAD_PATH = "/web/descarga";
     private static final String CARM_CONTENT_ID_QUERY_PARAM = "IDCONTENIDO";
     private static final String CARM_TYPE_ID_QUERY_PARAM = "IDTIPO";
     private static final String CARM_LOWER_BOUND_QUERY_PARAM = "RESULTADO_INFERIOR";
