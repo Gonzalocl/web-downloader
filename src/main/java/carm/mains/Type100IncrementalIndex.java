@@ -23,7 +23,7 @@ import java.util.List;
 
 public class Type100IncrementalIndex {
 
-    public static void fetchCarm(String dataFolder, String contentId, int lowerBound, int upperBound, String trace) throws IOException, URISyntaxException {
+    public static void run(String dataFolder, String contentId, int lowerBound, int upperBound, String trace) throws IOException, URISyntaxException {
 
         final String url = buildUrl(contentId, lowerBound, upperBound, trace);
 
