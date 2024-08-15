@@ -31,6 +31,24 @@ public class CarmUriBuilder {
         uriBuilder = new URIBuilder(CARM_BASE_URL).appendPath(uriType.getPath());
     }
 
+    public CarmUriBuilder(String uri) throws URISyntaxException {
+        if (!uri.startsWith(CARM_BASE_URL)) {
+            throw new IllegalArgumentException();
+        }
+
+        uriBuilder = new URIBuilder(uri);
+
+        final URI parsedUri = uriBuilder.build();
+
+        if (UriType.PAGE.getPath().equals(parsedUri.getPath())) {
+            uriType = UriType.PAGE;
+        } else if (UriType.DOWNLOAD.getPath().equals(parsedUri.getPath())) {
+            uriType = UriType.DOWNLOAD;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public CarmUriBuilder addContentId(String contentId) {
         this.contentId = contentId;
         uriBuilder.addParameter(CARM_CONTENT_ID_QUERY_PARAM, contentId);
