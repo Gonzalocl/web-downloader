@@ -7,7 +7,7 @@ import carm.parser.impl.Type100Item;
 import carm.parser.impl.Type100Parser;
 import carm.parser.types.Link;
 import carm.storage.LinkStore;
-import carm.storage.interinosincrementalindex.InterinosIncrementalIndexStore;
+import carm.storage.type100incrementalindex.Type100IncrementalIndexStore;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -21,7 +21,7 @@ import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 
-public class InterinosIncrementalIndex {
+public class Type100IncrementalIndex {
 
     public static void fetchCarm(String dataFolder, int lowerBound, int upperBound) throws IOException, URISyntaxException {
 
@@ -47,7 +47,7 @@ public class InterinosIncrementalIndex {
     private static List<Link> storeAndGetNewLinks(String dataFolder, Type100Item item, int lowerBound, int upperBound) throws IOException {
 
         final ZonedDateTime now = ZonedDateTime.now();
-        final Path dataPath = Paths.get(dataFolder, "InterinosIncrementalIndex");
+        final Path dataPath = Paths.get(dataFolder, "Type100IncrementalIndex");
         final Path filePath = dataPath.resolve(Carm.formatter.format(now) + ".json");
 
         Files.createDirectories(dataPath);
@@ -56,7 +56,7 @@ public class InterinosIncrementalIndex {
                 .map(l -> new LinkStore(l.name(), l.url()))
                 .toList();
 
-        InterinosIncrementalIndexStore indexStore = new InterinosIncrementalIndexStore(now.toEpochSecond(), lowerBound, upperBound, links, null, null);
+        Type100IncrementalIndexStore indexStore = new Type100IncrementalIndexStore(now.toEpochSecond(), lowerBound, upperBound, links, null, null);
 
         Files.writeString(filePath, Carm.gson.toJson(indexStore));
 
