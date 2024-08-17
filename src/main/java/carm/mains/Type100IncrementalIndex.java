@@ -74,7 +74,7 @@ public class Type100IncrementalIndex {
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException {
-        fetchCarm("/tmp", "", 0, 3, "");
+        run("/tmp", "", 0, 3, "");
     }
 
 }
