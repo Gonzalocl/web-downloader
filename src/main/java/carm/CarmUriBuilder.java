@@ -12,13 +12,14 @@ public class CarmUriBuilder {
 
     public static final String CARM_HOST = "www.carm.es";
     public static final String CARM_BASE_URL = "https://" + CARM_HOST;
-    private static final String CARM_PAGE_PATH = "/web/pagina";
-    private static final String CARM_DOWNLOAD_PATH = "/web/descarga";
+    public static final String CARM_PAGE_PATH = "/web/pagina";
+    public static final String CARM_DOWNLOAD_PATH = "/web/descarga";
     private static final String CARM_CONTENT_ID_QUERY_PARAM = "IDCONTENIDO";
     private static final String CARM_TYPE_ID_QUERY_PARAM = "IDTIPO";
     private static final String CARM_LOWER_BOUND_QUERY_PARAM = "RESULTADO_INFERIOR";
     private static final String CARM_UPPER_BOUND_QUERY_PARAM = "RESULTADO_SUPERIOR";
     private static final String CARM_TRACE_QUERY_PARAM = "RASTRO";
+    public static final String CARM_ARCHIVE_QUERY_PARAM = "ARCHIVO";
 
     private final URIBuilder uriBuilder;
     private final UriPath uriPath;
