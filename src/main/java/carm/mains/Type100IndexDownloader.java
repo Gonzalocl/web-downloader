@@ -29,7 +29,7 @@ public class Type100IndexDownloader {
 
         Files.createDirectories(dataPath);
 
-        final List<String> failedDownloads = new LinkedList<>();
+        final List<LinkStore> failedDownloads = new LinkedList<>();
         final int[] count = {0};
         final int total = index.links().size();
         index.links().forEach(link -> download(link, ++count[0], total, dataPath, failedDownloads));
@@ -42,7 +42,7 @@ public class Type100IndexDownloader {
         }
     }
 
-    private static void download(LinkStore link, int count, int total, Path dataPath, List<String> failedDownloads) {
+    private static void download(LinkStore link, int count, int total, Path dataPath, List<LinkStore> failedDownloads) {
         final String url = link.url();
         final URIBuilder uriBuilder;
         final URI uri;
@@ -53,7 +53,7 @@ public class Type100IndexDownloader {
             uriBuilder = new URIBuilder(url);
             uri = uriBuilder.build();
         } catch (URISyntaxException e) {
-            failedDownloads.add(url);
+            failedDownloads.add(link);
             System.out.printf("Failed to download: %s%n", url);
             e.printStackTrace();
             return;
@@ -72,7 +72,7 @@ public class Type100IndexDownloader {
         try {
             client.send(request, HttpResponse.BodyHandlers.ofFile(filePath));
         } catch (IOException | InterruptedException e) {
-            failedDownloads.add(url);
+            failedDownloads.add(link);
             System.out.printf("Failed to download: %s%n", url);
             e.printStackTrace();
         }
