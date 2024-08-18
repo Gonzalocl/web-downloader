@@ -4,6 +4,7 @@ import carm.Carm;
 import carm.CarmUriBuilder;
 import carm.storage.LinkStore;
 import carm.storage.type100incrementalindex.Type100IncrementalIndexStore;
+import carm.utils.FileUtils;
 import org.apache.hc.core5.net.URIBuilder;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class Type100IndexDownloader {
 
         Type100IncrementalIndexStore index = Carm.gson.fromJson(Files.readString(Path.of(indexFile)), Type100IncrementalIndexStore.class);
 
-        final Path dataPath = Path.of(indexFile.substring(0, indexFile.lastIndexOf(".")));
+        final Path dataPath = FileUtils.getFolder(indexFile);
 
         Files.createDirectories(dataPath);
 
@@ -61,8 +62,7 @@ public class Type100IndexDownloader {
 
         final String archive = uriBuilder.getFirstQueryParam(CarmUriBuilder.CARM_ARCHIVE_QUERY_PARAM).getValue();
         final String fileNameExtension = archive.substring(archive.lastIndexOf("."));
-        final String fileName = link.name().replace("/", "-");
-        final Path filePath = dataPath.resolve(fileName + fileNameExtension);
+        final Path filePath = FileUtils.getFilePath(dataPath, link.name(), fileNameExtension);
 
         final HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
