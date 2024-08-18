@@ -16,7 +16,6 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +46,7 @@ public class Type100IncrementalIndex {
     private static List<Link> storeAndGetNewLinks(String dataFolder, Type100Item item, String url) throws IOException {
 
         final ZonedDateTime now = ZonedDateTime.now();
-        final Path dataPath = Paths.get(dataFolder, "Type100IncrementalIndex");
+        final Path dataPath = Path.of(dataFolder, "Type100IncrementalIndex");
         final Path filePath = dataPath.resolve(Carm.formatter.format(now) + ".json");
 
         Files.createDirectories(dataPath);
